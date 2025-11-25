@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppApplication {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AppApplication.class);
+	private static  Object resultado = null;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);
@@ -23,16 +24,18 @@ public class AppApplication {
 
 	@GetMapping("/api/demo-logs")
 	public String demoLogs() {
+		
 		logger.trace("Este es un mensaje de TRACE.");
 		logger.debug("Este es un mensaje de DEBUG.");
 
 		logger.info("Se ha recibido una petición al endpoint /api/demo-logs.");
 		logger.warn("Advertencia: Posible cuello de botella en la operación.");
 		try {
-			int resultado = 10 / 0;
+			   resultado = 10 / 2;
 		} catch (Exception e) {
 			logger.error("Error: Se ha intentado una división por cero.", e);
 		}
+		logger.info("El resultado de la operacion es: {}",resultado);
 		return "Revisa la consola para ver los logs.";
 	}
 }
